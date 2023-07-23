@@ -78,4 +78,6 @@ plot_simulation(results)
 
 ```
 
+![DCA simple testing](/data/test.png?raw=true)
+
 That's it! You've now learned how to use `DCAshund` to simulate DCA strategies. Remember, investing involves risk. Always do your own research before making investment decisions.
