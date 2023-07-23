@@ -55,7 +55,7 @@ for fund in isins:
 3. Merge stock data: If you have data from multiple stocks, you can use merge_stock_data to combine them into one dataframe:
 
 ```python
-merged_data = merge_stock_data(['FR0010687749.csv', 'FR0010315770.csv'])
+merged_data = merge_stock_data(['FR0010315770.csv', 'LU0533033667.csv'])
 
 ```
 
