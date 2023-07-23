@@ -30,7 +30,9 @@ Here's a step-by-step guide on how to use DCAshund for simulating DCA strategies
 # -*- coding: utf-8 -*-
 #
 
-import numpy as np
+import yfinance as yf
+import pandas as pd
+
 from dcashund import DCAshund, merge_stock_data, plot_simulation
 
 ```
@@ -62,7 +64,7 @@ merged_data = merge_stock_data(['FR0010687749.csv', 'FR0010315770.csv'])
 
 Simulate DCA strategies: Now we're ready to simulate some DCA strategies. We'll initialize a DCAshund object, simulate a strategy, and plot the results:
 
-- The `weights` parameter is a list of values that represent the proportion of each investment in the portfolio. The order of the weights corresponds to the order of the asset data files provided in `merge_stock_data`.
+- The `weights` parameter represents the proportion of each investment in the portfolio. The order of the weights corresponds to the order of the asset data files provided in `merge_stock_data`.
 - The `dca` parameter represents the amount of money invested in each period for the Dollar Cost Averaging strategy. 
 - The `entry_fee` parameter represents the transaction fees associated with buying assets, expressed as a proportion of the transaction amount.
 
