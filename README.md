@@ -2,7 +2,7 @@
 Long on strategy, short on complexity, your new loyal and compact DCA companion.
 
 ## Disclaimer
-This tool is provided for educational and informational purposes only and should not be construed as investment advice. Investing involves risk, including the possible loss. Past performance is not indicative of future results. Always do your own research and consider your financial situation carefully before making investment decisions.
+This tool is provided for educational and informational purposes only and should not be construed as investment advice. Investing involves risk that could result in financial losses. Past performance is not indicative of future results. Always do your own research and consider your financial situation carefully before making investment decisions.
 
 ## Installation
 I highly recommand you to install Mamba (https://github.com/conda-forge/miniforge#mambaforge) if you want a clean python environnment. To install everything properly with `mamba`, you just have to do this:
