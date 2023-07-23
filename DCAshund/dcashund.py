@@ -124,7 +124,7 @@ class DCAshund:
 
         return df
     
-    def simulate_multi_entry_points(self, data, start_date, end_date, freqency='1D', weights=None, dca=100, entry_fee=0):
+    def simulate_multi_entry_points(self, data, start_date, end_date, frequency='1D', weights=None, dca=100, entry_fee=0):
         """
         Simulate the performance of a portfolio over a period of time starting 
         at different entry points following a given frequency.
@@ -160,17 +160,17 @@ class DCAshund:
         index = []
         data_results = []
 
-        if not 'D' in freqency or 'M' in freqency or 'W' in freqency:
+        if not ('D' in frequency or 'M' in frequency or 'W' in frequency):
             raise ValueError("freqency must be either 'XM', 'XW' or 'XD' for X months, weeks or days, respectly.")
 
-        if 'D' in freqency:
-            offset = int(freqency.replace('D', ''))
+        if 'D' in frequency:
+            offset = int(frequency.replace('D', ''))
             date_offset = DateOffset(days=offset)
-        elif 'W' in freqency:
-            offset = int(freqency.replace('W', ''))
+        elif 'W' in frequency:
+            offset = int(frequency.replace('W', ''))
             date_offset = DateOffset(weeks=offset)
-        elif 'M' in freqency:
-            offset = int(freqency.replace('M', ''))
+        elif 'M' in frequency:
+            offset = int(frequency.replace('M', ''))
             date_offset = DateOffset(months=offset)
 
         for date in pd.date_range(start_date, end_date, freq=date_offset):
