@@ -17,7 +17,7 @@ $ pip install .
 
 ## Quick tutorial
 
-Here's a step-by-step guide on how to use `DCAshund` for simulating DCA (Dollar Cost Averaging) strategies:
+Here's a step-by-step guide on how to use `DCAshund` for simulating [DCA](https://en.wikipedia.org/wiki/Dollar_cost_averaging) (Dollar Cost Averaging) strategies:
 
 1. Import necessary modules: We'll need `yfinance` for retrieving ETF data, `pandas` and several modules from `DCAshund`:
 
