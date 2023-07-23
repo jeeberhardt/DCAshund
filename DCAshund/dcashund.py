@@ -176,10 +176,15 @@ class DCAshund:
         for date in pd.date_range(start_date, end_date, freq=date_offset):
             results = self.simulate(data, date, end_date, weights=weights, dca=dca, entry_fee=entry_fee)
             index.append(results.index[0])
-            data_results.append((results["perf"][-1], results['value'][-1]))
+            data_results.append((results["cumulative_investment"][-1], results["perf"][-1], results['value'][-1]))
 
-        df = pd.DataFrame(data=data_results, index=index, columns=['perf', 'value'])
+        df = pd.DataFrame(data=data_results, index=index, columns=['cumulative_investment', 'perf', 'value'])
         df.index = pd.to_datetime(df.index)
+
+        # If we have dataset with only business days data, we will have duplicates
+        # since we are using DateOffset to generate the dates.
         df = df[~df.index.duplicated(keep='first')]
+        # It happens that dates are not sorted
+        df.sort_index(inplace=True)
         
         return df
