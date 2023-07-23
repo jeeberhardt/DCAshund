@@ -47,6 +47,7 @@ for fund in isins:
     ticker = yf.Ticker(fund[0])
     history = ticker.history(period="max")
 
+    # Remove hour from date
     history['Date'] = pd.to_datetime(history.index).date
     history.set_index('Date', inplace=True)
 
@@ -62,7 +63,7 @@ merged_data = merge_stock_data(['FR0010687749.csv', 'FR0010315770.csv'])
 
 ```
 
-Simulate DCA strategies: Now we're ready to simulate some DCA strategies. We'll initialize a DCAshund object, simulate a strategy, and plot the results:
+4. Now we're ready to simulate some DCA strategies. We'll initialize a DCAshund object, simulate a strategy, and plot the results:
 
 - The `weights` parameter represents the proportion of each investment in the portfolio. The order of the weights corresponds to the order of the asset data files provided in `merge_stock_data`.
 - The `dca` parameter represents the amount of money invested in each period for the Dollar Cost Averaging strategy. 
