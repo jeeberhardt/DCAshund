@@ -17,9 +17,9 @@ $ pip install .
 
 ## Quick tutorial
 
-Here's a step-by-step guide on how to use DCAshund for simulating DCA strategies:
+Here's a step-by-step guide on how to use `DCAshund` for simulating DCA (Dollar Cost Averaging) strategies:
 
-1. Import necessary modules: We'll need numpy, yfinance for retrieving stock data, and several modules from `DCAshund``:
+1. Import necessary modules: We'll need `yfinance` for retrieving ETF data, `pandas` and several modules from `DCAshund`:
 
 ```python
 #!/usr/bin/env python
@@ -33,7 +33,7 @@ from dcashund import DCAshund, merge_stock_data, plot_simulation
 
 ```
 
-2. Retrieve and save stock data: We'll use `yfinance`` to retrieve historical data for certain stocks and save the data as CSV files. Replace the stock symbols with those of the stocks you're interested in:
+2. Retrieve and save ETF data: We'll use `yfinance` to retrieve historical data for certain ETFs and save the data as CSV files. Replace the ISINS with those of the ETFs you're interested in:
 
 ```python
 isins = [('FR0010315770', 'Lyxor MSCI World UCITS ETF - Dist'),
@@ -52,17 +52,17 @@ for fund in isins:
 
 ```
 
-3. Merge stock data: If you have data from multiple stocks, you can use merge_stock_data to combine them into one dataframe:
+3. Merge stock data: If you have data from multiple ETFs, you can use `merge_stock_data` to combine them into one dataframe:
 
 ```python
 merged_data = merge_stock_data(['FR0010315770.csv', 'LU0533033667.csv'])
 
 ```
 
-4. Now we're ready to simulate some DCA strategies. We'll initialize a DCAshund object, simulate a strategy, and plot the results:
+4. Now we're ready to simulate some DCA strategies. We'll initialize a `DCAshund` object, simulate a strategy, and plot the results:
 
 - The `weights` parameter represents the proportion of each investment in the portfolio. The order of the weights corresponds to the order of the asset data files provided in `merge_stock_data`.
-- The `dca` parameter represents the amount of money invested in each period for the Dollar Cost Averaging strategy. 
+- The `dca` parameter represents the amount of money invested in each period for the DCA strategy. 
 - The `entry_fee` parameter represents the transaction fees associated with buying assets, expressed as a proportion of the transaction amount.
 
 ```python
