@@ -18,3 +18,6 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/jeeberhardt/dcashund"
 "Source" = "https://github.com/jeeberhardt/dcashund"
+
+[tool.setuptools]
+py-modules = ['dcashund']
