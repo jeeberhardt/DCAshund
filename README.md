@@ -8,14 +8,10 @@ This tool is provided for educational and informational purposes only and should
 I highly recommand you to install Mamba (https://github.com/conda-forge/miniforge#mambaforge) if you want a clean python environnment. To install everything properly with `mamba`, you just have to do this:
 
 ```bash
-mamba env create -f environment.yaml -n dcashund
-mamba activate dcashund
-```
-
-Finally, we can install the `DCAshund` package
-```bash
 $ git clone https://github.com/jeeberhardt/dcashund
 $ cd dcashund
+$ mamba env create -f environment.yaml -n dcashund
+$ mamba activate dcashund
 $ pip install .
 ```
 
