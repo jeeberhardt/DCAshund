@@ -81,8 +81,7 @@ def plot_simulation(simulation_result, fig_filename=None):
         The filename to save the figure to. If not specified, the figure will just be displayed instead.
 
     """
-
-    fig, ax1 = plt.subplots(figsize=(15,5))
+    fig, ax1 = plt.subplots(figsize=(15, 5))
 
     # Plot value and cumulative_investment
     ax1.set_xlabel('Date')
@@ -90,20 +89,26 @@ def plot_simulation(simulation_result, fig_filename=None):
     ax1.plot(pd.to_datetime(simulation_result.index), simulation_result['value'], color='tab:blue', label='Value')
     ax1.plot(pd.to_datetime(simulation_result.index), simulation_result['cumulative_investment'], color='tab:orange', label='Cumulative Investment')
     ax1.tick_params(axis='y', labelcolor='tab:blue')
-    ax1.legend(loc='upper left')
 
     # Instantiate a second axes that shares the same x-axis
     ax2 = ax1.twinx()  
     ax2.set_ylabel('Performance (%)', color='tab:red')  # we already handled the x-label with ax1
     ax2.plot(pd.to_datetime(simulation_result.index), simulation_result['perf'], color='tab:red', label='Performance')
     ax2.tick_params(axis='y', labelcolor='tab:red')
-    ax2.legend(loc='upper right')
 
     # Set x-axis major ticks to yearly interval
     ax1.xaxis.set_major_locator(mdates.YearLocator())
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
+
+    handles, labels = [], []
+    for ax in fig.axes:
+        for h,l in zip(*ax.get_legend_handles_labels()):
+            handles.append(h)
+            labels.append(l)
+
+    plt.legend(handles, labels)
 
     if fig_filename:
         plt.savefig(fig_filename, bbox_inches='tight', dpi=300)
