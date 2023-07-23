@@ -180,5 +180,6 @@ class DCAshund:
 
         df = pd.DataFrame(data=data_results, index=index, columns=['perf', 'value'])
         df.index = pd.to_datetime(df.index)
+        df = df[~df.index.duplicated(keep='first')]
         
         return df
