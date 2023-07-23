@@ -1,4 +1,4 @@
-# DCAshund
+# DCAshund :dog2:
 Long on strategy, short on complexity, your new loyal and compact DCA companion.
 
 ## Disclaimer
