@@ -12,6 +12,22 @@ from matplotlib import pyplot as plt
 
 
 def merge_stock_data(file_paths, fill_missing=True):
+    """
+    Merge stock data from multiple files into a single dataframe.
+
+    Parameters
+    ----------
+    file_paths : list
+        A list of file paths to the stock data files.
+    fill_missing : bool, optional
+        Whether to fill missing data using forward fill method. The default is True.
+
+    Returns
+    -------
+    merged_data : pandas.DataFrame
+        The merged stock data.
+    
+    """
     dataframes = []
     start_dates = []
     end_dates = []
@@ -53,7 +69,19 @@ def merge_stock_data(file_paths, fill_missing=True):
     return merged_data
 
 
-def plot_simulation(simulation_result: pd.DataFrame):
+def plot_simulation(simulation_result, fig_filename=None):
+    """
+    Plot the simulation result.
+
+    Parameters
+    ----------
+    simulation_result : pandas.DataFrame
+        The simulation result returned by DCAshund.simulate().
+    fig_filename : str, optional
+        The filename to save the figure to. If not specified, the figure will just be displayed instead.
+
+    """
+
     fig, ax1 = plt.subplots(figsize=(15,5))
 
     # Plot value and cumulative_investment
@@ -76,4 +104,8 @@ def plot_simulation(simulation_result: pd.DataFrame):
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
+
+    if fig_filename:
+        plt.savefig(fig_filename, bbox_inches='tight', dpi=300)
+
     plt.show()
