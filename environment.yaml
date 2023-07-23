@@ -1,0 +1,11 @@
+name: dcashund
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - matplotlib
+  - pip
+  - pip:
+    - yfinance
