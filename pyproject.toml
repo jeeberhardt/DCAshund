@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "dcashund"
+version = "0.1.0"
+description = "A Python package for simulating Dollar Cost Averaging strategies."
+authors = [{name="Jerome Eberhardt", email="qksoneo@gmail.com"}]
+readme = "README.md"
+license = { text = "MIT License" }
+requires-python = ">3.7"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "pandas",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jeeberhardt/dcashund"
+"Source" = "https://github.com/jeeberhardt/dcashund"
