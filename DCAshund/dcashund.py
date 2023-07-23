@@ -4,6 +4,8 @@
 # DCAshund
 #
 
+import calendar
+
 import numpy as np
 import pandas as pd
 from pandas.tseries.offsets import DateOffset
@@ -33,20 +35,36 @@ class DCAshund:
             A list of dates in 'YYYY-MM-DD' format.
 
         """
-        # Parse the start date and extract the day of the month
+        # Parse the start and end dates
         start_date_parsed = pd.to_datetime(start_date)
-        day_of_month = start_date_parsed.day
+        end_date_parsed = pd.to_datetime(end_date)
+
+        # Create an empty list to store the dates
+        dates = []
 
         # Generate all dates within the specified period
-        dates = pd.date_range(start=start_date, end=end_date)
+        current_date = start_date_parsed
+        while current_date <= end_date_parsed:
+            # Append the current date to the list
+            dates.append(current_date)
 
-        # Select the dates that are the specified day of their respective month
-        dates = dates[dates.day == day_of_month]
+            # Calculate the next date
+            year = current_date.year
+            month = current_date.month % 12 + 1
+            day = start_date_parsed.day
 
-        # Adjust to the next business day if the date falls on a weekend
-        dates = [date + pd.offsets.BDay(1) if date.weekday() > 4 else date for date in dates]
+            # Adjust the year if necessary
+            if month == 1 and current_date.month == 12:
+                year += 1
+
+            # Adjust the day if necessary
+            day = min(day, calendar.monthrange(year, month)[1])
+
+            # Update the current date
+            current_date = pd.to_datetime(f"{year}-{month:02d}-{day:02d}")
 
         # Convert dates to 'YYYY-MM-DD' format
+        dates = [date + pd.offsets.BDay(1) if date.weekday() > 4 else date for date in dates]
         dates = [date.strftime('%Y-%m-%d') for date in dates]
 
         return dates
