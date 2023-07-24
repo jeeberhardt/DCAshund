@@ -70,7 +70,7 @@ merged_data = merge_stock_data(['FR0010315770.csv', 'LU0533033667.csv'])
 dh = DCAshund('Close')
 
 # Here we invest 500 euros (85 % in FR0010315770 and 15 % in LU0533033667) 
-# every month starting on the fourth day, considering an entry fee of 1 %.
+# on the fourth day of each month, considering an entry fee of 1 %.
 results = dh.simulate(merged_data, '2019-03-04', '2023-07-14', weights=[0.85, 0.15], dca=500, entry_fee=1./100)
 
 # Plot the simulation result
