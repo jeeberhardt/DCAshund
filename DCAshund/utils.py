@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from matplotlib import pyplot as plt
 
 
-def get_market_data_from_boursorama(symbol, duration='4Y', start_date=None):
+def get_market_data_from_boursorama(symbol, duration='max', start_date=None):
     """
     Get market data from boursorama.com
     
@@ -25,7 +25,8 @@ def get_market_data_from_boursorama(symbol, duration='4Y', start_date=None):
     start_date : str
         Start date of the data (default is None). Format is 'DD/MM/YYYY'.
     duration : str
-        Duration of the data (default is '4Y').
+        Duration of the data (default is 'max'). Format is 'XY' where X is a number 
+        and Y is the time unit (Y for years or M for months), or max for the maximum duration.
 
     Returns
     -------
@@ -40,6 +41,9 @@ def get_market_data_from_boursorama(symbol, duration='4Y', start_date=None):
     data = []
     if start_date is None:
         start_date = ''
+
+    if duration == 'max':
+        duration = '25Y'
 
     assert len(duration) >= 2, "Duration must be 2 characters. The first one is a number and the second one is the time unit (Y or M)."
     assert duration[-1] in ['Y', 'M'], "The second character of duration must be Y or M."
@@ -198,7 +202,7 @@ def plot_simulation(simulation_result, fig_filename=None):
             handles.append(h)
             labels.append(l)
 
-    plt.legend(handles, labels)
+    plt.legend(handles, labels, loc='upper left')
 
     if fig_filename:
         plt.savefig(fig_filename, bbox_inches='tight', dpi=300)
