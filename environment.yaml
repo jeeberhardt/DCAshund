@@ -6,6 +6,7 @@ dependencies:
   - numpy
   - pandas
   - matplotlib
+  - beautifulsoup4
   - pip
   - pip:
     - yfinance
