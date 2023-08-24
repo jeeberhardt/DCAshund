@@ -95,7 +95,7 @@ def get_market_data_from_boursorama(symbol, duration='max', start_date=None):
 
     if duration_left:
         # Little trick to get data from the previous years > 4 years
-        start_date = df.index[-1] - pd.DateOffset(years=duration_left)
+        start_date = df.index[-1] - pd.DateOffset(years=4)
         df2 = get_market_data_from_boursorama(symbol, f"{duration_left}Y", start_date.strftime("%d/%m/%Y"))
         df = pd.concat([df2, df])
         df = df[~df.index.duplicated(keep='first')]
