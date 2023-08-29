@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 import matplotlib.dates as mdates
+import numpy as np
 from bs4 import BeautifulSoup
 from matplotlib import pyplot as plt
 
@@ -105,16 +106,18 @@ def get_market_data_from_boursorama(symbol, duration='max', start_date=None):
     return df
 
 
-def merge_stock_data(file_paths, fill_missing=True):
+def merge_stock_data(file_paths):
     """
-    Merge stock data from multiple files into a single dataframe.
+    Merge stock data from multiple files into a single dataframe. 
+    
+    Disclaimer: To handle the different holidays in different countries, this function
+    will fill missing dates with the previous date's values. This is not ideal, but it
+    gives a good enough approximation for calculating the performance of a DCA strategy.
 
     Parameters
     ----------
     file_paths : list
         A list of file paths to the stock data files.
-    fill_missing : bool, optional
-        Whether to fill missing data using forward fill method. The default is True.
 
     Returns
     -------
@@ -131,6 +134,15 @@ def merge_stock_data(file_paths, fill_missing=True):
         data = pd.read_csv(file_path)
         # Keep only the 'Date', 'Close', 'High', 'Low', and 'Open' columns
         data = data[['Date', 'Close', 'High', 'Low', 'Open']]
+        # Fill missing dates with the previous date's values
+        # Source: https://stackoverflow.com/a/71316815
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = (data.set_index('Date')
+                .reindex(pd.date_range(data['Date'].min(), data['Date'].max(), freq='D'))
+                .rename_axis(['Date'])
+                .fillna(np.nan)
+                .reset_index())
+        data.fillna(method='ffill', inplace=True)
         # Set the 'Date' column as the index
         data.set_index('Date', inplace=True)
         # Get the name of the file without the extension
@@ -153,12 +165,6 @@ def merge_stock_data(file_paths, fill_missing=True):
     
     # Crop the merged dataframe to this date range
     merged_data = merged_data.loc[max_start_date:min_end_date]
-    
-    # If fill_missing option is enabled, fill missing data using forward fill method
-    if fill_missing:
-        if merged_data.isna().any().any():
-            print("Warning: Missing data detected. Forward filling missing data...")
-        merged_data.fillna(method='ffill', inplace=True)
     
     return merged_data
 
