@@ -133,7 +133,8 @@ class DCAshund:
         df['weighted_price'] = (df * weights).sum(axis=1)
 
         # Compute the cumulative investment
-        df['cumulative_investment'] = dca_after_fee
+        # The amount invested is the DCA value, not the DCA after fee
+        df['cumulative_investment'] = dca
         df['cumulative_investment'] = df['cumulative_investment'].cumsum()
 
         # Compute the number of shares bought
