@@ -31,8 +31,8 @@ class DCAshund:
 
         Returns
         -------
-        dates : list
-            A list of dates in 'YYYY-MM-DD' format.
+        dates : pandas.DatetimeIndex
+            A DatetimeIndex containing all dates within the specified period.
 
         """
         # Parse the start and end dates
@@ -66,6 +66,9 @@ class DCAshund:
         # Convert dates to 'YYYY-MM-DD' format
         dates = [date + pd.offsets.BDay(1) if date.weekday() > 4 else date for date in dates]
         dates = [date.strftime('%Y-%m-%d') for date in dates]
+
+        # Ensure that dates is of dtype datetime64[ns]
+        dates = pd.to_datetime(dates)
 
         return dates
 
@@ -101,6 +104,9 @@ class DCAshund:
         assert dca > 0, f'dca value must be superior than zero'
         
         data = data.xs(self.price_type, level=1, axis=1)
+
+        # Ensure that data.index is of dtype datetime64[ns]
+        data.index = pd.to_datetime(data.index)
         
         # Define weights after handling missing data
         if weights is None:
@@ -116,6 +122,8 @@ class DCAshund:
         
         # Generate monthly dates
         drange = self._generate_monthly_dates(start_date, end_date)
+
+        # Select the data within the specified period
         df = data[data.index.isin(drange)].copy()
 
         # Subtracts the entry fee from the DCA
