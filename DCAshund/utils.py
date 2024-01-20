@@ -142,7 +142,7 @@ def merge_stock_data(file_paths):
                 .rename_axis(['Date'])
                 .fillna(np.nan)
                 .reset_index())
-        data.fillna(method='ffill', inplace=True)
+        data.ffill(inplace=True)
         # Set the 'Date' column as the index
         data.set_index('Date', inplace=True)
         # Get the name of the file without the extension
